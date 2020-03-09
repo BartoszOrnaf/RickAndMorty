@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.scss';
-import DeadOrComponent from './components/Character/DeadOrComponent'
+import DeadOrAliveComponent from './components/DeadOrAlive/DeadOrAliveComponent'
 
 class App extends React.Component {
   constructor(props) {
@@ -14,10 +14,10 @@ class App extends React.Component {
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          KNOW YOUR RICK AND MORTY
+        <header className="App__header">
+          <h1 className="font--big">KNOW YOUR RICK AND MORTY</h1>
       </header>
-        < DeadOrComponent id={'Rick'} />
+        < DeadOrAliveComponent id={'Rick'} />
       </div>
     );
   }

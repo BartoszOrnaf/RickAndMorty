@@ -1,8 +1,8 @@
 import React from 'react';
-import './DeadOr.scss'
-import loading from './loading.png'
+import './DeadOrAlive.scss'
+import loading from './assets/loading.png'
 
-class CharacterComponent extends React.Component {
+class DeadOrAliveComponent extends React.Component {
 
 
     constructor(props) {
@@ -16,7 +16,7 @@ class CharacterComponent extends React.Component {
             score: 0,
             scoreDisplay: false,
             scoreMessage: '',
-            scoreStyle: 'wrong'
+            scoreStyle: 'font--small--red'
         }
 
         this.nextOne = this.nextOne.bind(this);
@@ -49,47 +49,40 @@ class CharacterComponent extends React.Component {
                 characterName: res.name
             }))
             .catch(error => console.error('error:', error))
-
-
     }
 
     checkAnswer(answer) {
-
-
         this.setState({
             currentTry: this.state.currentTry + 1,
-
         })
 
         if (answer === this.state.character.status && answer === 'Alive') {
             this.setState({
                 score: this.state.score + 1,
                 scoreMessage: `Yep! ${this.state.characterName} is alive! `,
-                scoreStyle: 'right'
+                scoreStyle: 'font--small--green'
             })
         } else if (answer === this.state.character.status && answer === 'Dead') {
             this.setState({
                 score: this.state.score + 1,
                 scoreMessage: `That's right! ${this.state.characterName} is dead! `,
-                scoreStyle: 'right'
+                scoreStyle: 'font--small--green'
             })
         } else if (answer === this.state.character.status && answer === 'unknown') {
             this.setState({
                 score: this.state.score + 1,
                 scoreMessage: `You guessed it! It is unknown!`,
-                scoreStyle: 'right'
+                scoreStyle: 'font--small--green'
             })
         } else {
             this.setState({
                 scoreMessage: `Ups! ${this.state.characterName} status: ${this.state.character.status}`,
-                scoreStyle: 'wrong'
+                scoreStyle: 'font--small--red'
             })
         }
-
     }
 
     nextOne() {
-
         this.setState({
             characterImg: loading,
             characterName: 'loading...'
@@ -97,7 +90,6 @@ class CharacterComponent extends React.Component {
             this.getRandomCharacter();
             this.toggleScoreDisplay();
         })
-
     }
 
     toggleScoreDisplay() {
@@ -108,17 +100,16 @@ class CharacterComponent extends React.Component {
 
 
     render() {
-
-
+        
         let displayGame = (params) => {
 
             if (this.state.scoreDisplay === false && this.state.currentTry < 11) {
                 return (<div>
-                    <h1 className="font-small">{this.state.currentTry} of 10</h1>
-                    <img src={this.state.characterImg} alt="character"></img>
-                    <h2 className="font-small">{this.state.characterName}</h2>
-                    <h1 className="font-medium">
-                        <button className="dead-button" onClick={() => { this.checkAnswer("Dead"); this.toggleScoreDisplay() }}>Dead</button>, <button className="dead-button" onClick={() => { this.checkAnswer("Alive"); this.toggleScoreDisplay() }}>alive</button> or <button className="dead-button" onClick={() => { this.checkAnswer("unknown"); this.toggleScoreDisplay() }}>unknown</button>?
+                    <h1 className="font--small">{this.state.currentTry} of 10</h1>
+                    <img src={this.state.characterImg} className="character__img" alt="character"></img>
+                    <h2 className="font--small">{this.state.characterName}</h2>
+                    <h1 className="font--medium">
+                        <button className="button--medium" onClick={() => { this.checkAnswer("Dead"); this.toggleScoreDisplay() }}>Dead</button>, <button className="button--medium" onClick={() => { this.checkAnswer("Alive"); this.toggleScoreDisplay() }}>alive</button> or <button className="button--medium" onClick={() => { this.checkAnswer("unknown"); this.toggleScoreDisplay() }}>unknown</button>?
                     </h1>
                 </div>)
             }
@@ -130,22 +121,21 @@ class CharacterComponent extends React.Component {
             if (this.state.scoreDisplay && this.state.currentTry < 11) {
                 return (<div>
                     <h1 id="answer" className={this.state.scoreStyle} >{this.state.scoreMessage}</h1>
-                    <img src={this.state.characterImg} alt="character"></img>
-                    <h2 className="font-small">Your score is: {this.state.score}</h2>
-                    <button className="dead-button" onClick={this.nextOne}>Next</button>
+                    <img src={this.state.characterImg}  className="character__img" alt="character"></img>
+                    <h2 className="font--small">Your score is: {this.state.score}</h2>
+                    <button className="button--medium" onClick={this.nextOne}>Next</button>
                 </div>)
             }
 
         };
 
         let displayFinalScore = (params) => {
-
             if (this.state.currentTry === 11) {
                 return (<div>
                     <h1 id="answer" className={this.state.scoreStyle} >{this.state.scoreMessage}</h1>
-                    <img src={this.state.characterImg} alt="character"></img>
+                    <img src={this.state.characterImg} className="character__img" alt="character"></img>
                     <h2 className="right">Your final score is: {this.state.score} / 10</h2>
-                    <button className="dead-button" onClick={() => {
+                    <button className="button--medium" onClick={() => {
                         this.setState({
                             currentTry: 1,
                             scoreDisplay: false,
@@ -180,4 +170,4 @@ class CharacterComponent extends React.Component {
 
 };
 
-export default CharacterComponent;
+export default DeadOrAliveComponent;

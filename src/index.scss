@@ -1,6 +1,48 @@
+@import "./variables.scss";
+
+@mixin font-main($size, $color: $main-azure) {
+  font-size: $size;
+  font-family: "Gloria Hallelujah";
+  padding: 0px;
+  margin: 0px;
+  color: $color;
+  text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black, 0px 0px 15px $main-green;
+}
+
 body {
-  
   margin: 0;
   height: 100vh;
-  background: radial-gradient(circle, rgba(124,181,49,1) 0%, rgba(117,172,45,1) 100%);
+  background: radial-gradient(circle, rgba(124, 181, 49, 1) 0%, rgba(117, 172, 45, 1) 100%);
+}
+
+.font--big {
+  @include font-main($font-big);
+}
+
+.font--medium {
+  @include font-main($font-medium);
+}
+
+.font--small {
+  @include font-main($font-small);
+}
+
+.font--small--red {
+  @include font-main($font-small, $main-red);
+}
+
+.font--small--green {
+  @include font-main($font-small, $main-green);
+}
+
+.button--medium {
+  @include font-main($font-medium);
+
+  background: none;
+  border-width: 0;
+  outline: none;
+  &:hover {
+    color: $main-green;
+    cursor: pointer;
+  }
 }
