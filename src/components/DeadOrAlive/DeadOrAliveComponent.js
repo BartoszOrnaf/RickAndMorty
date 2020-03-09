@@ -1,7 +1,9 @@
 import React from 'react';
 import './DeadOrAlive.scss'
 import loading from './assets/loading.png'
-
+import DisplayScoreComponent from './DisplayScoreComponent'
+import DisplayFinalScoreComponent from './DisplayFinalScoreComponent'
+import DisplayGameComponent from './DisplayGameComponent'
 class DeadOrAliveComponent extends React.Component {
 
 
@@ -80,6 +82,8 @@ class DeadOrAliveComponent extends React.Component {
                 scoreStyle: 'font--small--red'
             })
         }
+
+        this.toggleScoreDisplay();
     }
 
     nextOne() {
@@ -100,74 +104,57 @@ class DeadOrAliveComponent extends React.Component {
 
 
     render() {
-        
-        let displayGame = (params) => {
-
-            if (this.state.scoreDisplay === false && this.state.currentTry < 11) {
-                return (<div>
-                    <h1 className="font--small">{this.state.currentTry} of 10</h1>
-                    <img src={this.state.characterImg} className="character__img" alt="character"></img>
-                    <h2 className="font--small">{this.state.characterName}</h2>
-                    <h1 className="font--medium">
-                        <button className="button--medium" onClick={() => { this.checkAnswer("Dead"); this.toggleScoreDisplay() }}>Dead</button>, <button className="button--medium" onClick={() => { this.checkAnswer("Alive"); this.toggleScoreDisplay() }}>alive</button> or <button className="button--medium" onClick={() => { this.checkAnswer("unknown"); this.toggleScoreDisplay() }}>unknown</button>?
-                    </h1>
-                </div>)
-            }
-
-        };
-
-        let displayScore = (params) => {
-
-            if (this.state.scoreDisplay && this.state.currentTry < 11) {
-                return (<div>
-                    <h1 id="answer" className={this.state.scoreStyle} >{this.state.scoreMessage}</h1>
-                    <img src={this.state.characterImg}  className="character__img" alt="character"></img>
-                    <h2 className="font--small">Your score is: {this.state.score}</h2>
-                    <button className="button--medium" onClick={this.nextOne}>Next</button>
-                </div>)
-            }
-
-        };
-
-        let displayFinalScore = (params) => {
-            if (this.state.currentTry === 11) {
-                return (<div>
-                    <h1 id="answer" className={this.state.scoreStyle} >{this.state.scoreMessage}</h1>
-                    <img src={this.state.characterImg} className="character__img" alt="character"></img>
-                    <h2 className="right">Your final score is: {this.state.score} / 10</h2>
-                    <button className="button--medium" onClick={() => {
-                        this.setState({
-                            currentTry: 1,
-                            scoreDisplay: false,
-                            characterImg: loading,
-                            characterName: 'loading...',
-                            score: 0
-                        }, this.getRandomCharacter())
-
-                    }}>Play again!</button>
-                </div>)
-            }
-
-        };
-
 
         return (
             <div>
+
                 {
-                    displayGame()
+                    (this.state.scoreDisplay === false && this.state.currentTry < 11) ? (
+                        <DisplayGameComponent
+                            currentTry={this.state.currentTry}
+                            characterImg={this.state.characterImg}
+                            characterName={this.state.characterName}
+                            checkAnswer={this.checkAnswer}
+                        />
+                    ) : false
                 }
+
                 {
-                    displayScore()
+                    (this.state.scoreDisplay && this.state.currentTry < 11) ? (
+                        <DisplayScoreComponent
+                            scoreStyle={this.state.scoreStyle}
+                            scoreMessage={this.state.scoreMessage}
+                            characterImg={this.state.characterImg}
+                            score={this.state.score}
+                            nextOne={this.nextOne}
+                        />
+                    ) : false
                 }
+
                 {
-                    displayFinalScore()
+                    (this.state.currentTry === 11) ? (
+                        <DisplayFinalScoreComponent
+                            scoreStyle={this.state.scoreStyle}
+                            scoreMessage={this.state.scoreMessage}
+                            characterImg={this.state.characterImg}
+                            score={this.state.score}
+                            playAgain={() => {
+                                this.setState({
+                                    currentTry: 1,
+                                    scoreDisplay: false,
+                                    characterImg: loading,
+                                    characterName: 'loading...',
+                                    score: 0
+                                }, this.getRandomCharacter())
+                            }}
+                        />
+                    ) : false
                 }
 
             </div>
         )
 
     }
-
 };
 
 export default DeadOrAliveComponent;
