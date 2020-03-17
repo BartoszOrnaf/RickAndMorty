@@ -1,7 +1,7 @@
 import React from 'react';
-import './DeadOrAlive.scss';
+import './deadOrAlive.scss';
 
-function DisplayFinalScoreComponent(props) {
+function DisplayFinalScore(props) {
 
     return (<div>
         <h1 className={props.scoreStyle} >{props.scoreMessage}</h1>
@@ -12,4 +12,4 @@ function DisplayFinalScoreComponent(props) {
 
 };
 
-export default DisplayFinalScoreComponent;
+export default DisplayFinalScore;

@@ -1,0 +1,46 @@
+@import "../../variables.scss";
+@import "../../index.scss";
+.who-is-who {
+  display: flex;
+  justify-content: start;
+  flex-wrap: wrap;
+  width: 342px;
+  height: 342px;
+  //   box-shadow: 0px 0px 52px 0px $main-green;
+}
+
+.board {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+  border: 1px solid;
+
+  padding: 0px;
+  margin: 2px;
+  width: 110px;
+  height: 110px;
+  border-radius: 8px;
+}
+.board__compare {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+  border: 1px solid;
+
+  padding: 0px;
+  margin: 2px;
+  width: 110px;
+  height: 110px;
+  background-image: url("./assets/draghere.png");
+  background-size: cover;
+  border-radius: 8px;
+}
+
+.card {
+  padding: 0px;
+  margin: 0px;
+  width: 110px;
+  height: 110px;
+}

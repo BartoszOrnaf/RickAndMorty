@@ -1,7 +1,7 @@
 import React from 'react';
-import './DeadOrAlive.scss';
+import './deadOrAlive.scss';
 
-function DisplayScoreComponent(props) {
+function DisplayScore(props) {
 
     return (
         <div>
@@ -14,4 +14,4 @@ function DisplayScoreComponent(props) {
     
 };
 
-export default DisplayScoreComponent;
+export default DisplayScore;

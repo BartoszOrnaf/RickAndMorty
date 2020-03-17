@@ -1,10 +1,12 @@
 import React from 'react';
-import './DeadOrAlive.scss'
+import './deadOrAlive.scss'
 import loading from './assets/loading.png'
-import DisplayScoreComponent from './DisplayScoreComponent'
-import DisplayFinalScoreComponent from './DisplayFinalScoreComponent'
-import DisplayGameComponent from './DisplayGameComponent'
-class DeadOrAliveComponent extends React.Component {
+import DisplayScore from './DisplayScore'
+import DisplayFinalScore from './DisplayFinalScore'
+import DisplayGame from './DisplayGame'
+
+
+class DeadOrAlive extends React.Component {
 
 
     constructor(props) {
@@ -54,6 +56,8 @@ class DeadOrAliveComponent extends React.Component {
     }
 
     checkAnswer(answer) {
+
+        console.log(this.state)
         this.setState({
             currentTry: this.state.currentTry + 1,
         })
@@ -82,7 +86,6 @@ class DeadOrAliveComponent extends React.Component {
                 scoreStyle: 'font--small--red'
             })
         }
-
         this.toggleScoreDisplay();
     }
 
@@ -110,7 +113,7 @@ class DeadOrAliveComponent extends React.Component {
 
                 {
                     (this.state.scoreDisplay === false && this.state.currentTry < 11) ? (
-                        <DisplayGameComponent
+                        <DisplayGame
                             currentTry={this.state.currentTry}
                             characterImg={this.state.characterImg}
                             characterName={this.state.characterName}
@@ -121,7 +124,7 @@ class DeadOrAliveComponent extends React.Component {
 
                 {
                     (this.state.scoreDisplay && this.state.currentTry < 11) ? (
-                        <DisplayScoreComponent
+                        <DisplayScore
                             scoreStyle={this.state.scoreStyle}
                             scoreMessage={this.state.scoreMessage}
                             characterImg={this.state.characterImg}
@@ -133,7 +136,7 @@ class DeadOrAliveComponent extends React.Component {
 
                 {
                     (this.state.currentTry === 11) ? (
-                        <DisplayFinalScoreComponent
+                        <DisplayFinalScore
                             scoreStyle={this.state.scoreStyle}
                             scoreMessage={this.state.scoreMessage}
                             characterImg={this.state.characterImg}
@@ -157,4 +160,4 @@ class DeadOrAliveComponent extends React.Component {
     }
 };
 
-export default DeadOrAliveComponent;
+export default DeadOrAlive;
