@@ -8,69 +8,68 @@ class WhoIsWho extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            randomIds: [],
             charactersArr: [],
         }
     }
 
     componentDidMount() {
-
-        let i = 0;
-        while (i < 8) {
-           
-
-                i++
-            
-            this.addRandomCharacter()
-
-
-        }
+        this.getCharacterCount(() => {
+            this.getRandomIds(() => {
+                this.addCharacter()
+            })
+        })
     }
 
-    addRandomCharacter() {
-        fetch(
-            " https://rickandmortyapi.com/api/character/"
-        ).then(res => res.json()).then(res => this.setState({
-            randomId: Math.floor(Math.random() * (15) )+1
-            // randomId: Math.floor(Math.random() * (res.info.count - 1)) + 1
-        }, this.addCharacter))
+    componentDidUpdate() {
+        console.log(this.state)
+    }
 
-        
+    getCharacterCount(callback) {
+        this.setState({
+            characterCount: 400
+        }, callback)
+    }
+
+    getRandomIds(callback) {
+        const randomIds = [];
+        while (randomIds.length < 8) {
+            let currentId = Math.floor(Math.random() * (this.state.characterCount - 1)) + 1
+            if (randomIds.indexOf(currentId) === -1) {
+                randomIds.push(currentId)
+            }
+        }
+
+        this.setState({
+            randomIds: randomIds
+        }, callback)
     }
 
     addCharacter() {
+        this.state.randomIds.forEach(element => {
+            fetch(
+                `https://rickandmortyapi.com/api/character/${element}`,
+                { method: 'GET' }
+            )
+                .then(res => res.json())
+                .then(res => {
+                    this.setState({
+                        charactersArr: [...this.state.charactersArr, {
+                            characterId: res.id,
+                            characterImg: res.image,
+                            characterName: res.name
+                        }]
+                    })
 
-        fetch(
-            `https://rickandmortyapi.com/api/character/${this.state.randomId}`,
-            { method: 'GET' }
-        )
-            .then(res => res.json())
-            .then(res => {
-                const idCheck = this.state.charactersArr.filter((element)=>{return element.characterId === res.id});
-                console.log(idCheck)
-                console.log(this.state)
-            
-                if(idCheck.length === 0){
-                this.setState({
-                    charactersArr: [...this.state.charactersArr, {
-                        characterId: res.id,
-                        characterImg: res.image,
-                        characterName: res.name
-                    }]
-                })}else{
-                    this.addRandomCharacter()
-                }
-
-            })
-            .catch(error => console.error('error:', error))
+                })
+                .catch(error => console.error('error:', error))
+        });
     }
-
 
     render() {
         return (
             <div className="who-is-who">
-
                 {
-
                     this.state.charactersArr.map((character) =>
                         <Board
                             id={`board-${character.characterId}`}
@@ -79,20 +78,16 @@ class WhoIsWho extends React.Component {
                             <Card
                                 className="card"
                                 draggable="true">
-
                                 <img
                                     id={`card-${character.characterId}`}
                                     src={character.characterImg}
                                     className="character__img--small"
                                     alt="character"
                                 />
-
                             </Card>
-
                         </Board>
                     )
                 }
-
                 <Board
                     id="board-compare"
                     className="board__compare">
@@ -104,7 +99,6 @@ class WhoIsWho extends React.Component {
             </div>
         )
     }
-
 };
 
 export default WhoIsWho;
