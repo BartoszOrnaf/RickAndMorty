@@ -8,7 +8,6 @@ import DisplayGame from './DisplayGame'
 
 class DeadOrAlive extends React.Component {
 
-
     constructor(props) {
         super(props);
         this.state = {
@@ -57,7 +56,6 @@ class DeadOrAlive extends React.Component {
 
     checkAnswer(answer) {
 
-        console.log(this.state)
         this.setState({
             currentTry: this.state.currentTry + 1,
         })

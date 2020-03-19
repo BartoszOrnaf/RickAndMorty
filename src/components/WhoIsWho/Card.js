@@ -8,11 +8,9 @@ function Card(props) {
         e.dataTransfer.setData('card_id', target.id);
     }
 
-
     const dragOver = e => {
         e.stopPropagation()
     }
-
 
     return (
         <div
