@@ -97,7 +97,7 @@ class WhoIsWho extends React.Component {
 
     checkAnswer(answer) {
 
-        if (answer == this.state.searchedCharacter.id) {
+        if (answer === this.state.searchedCharacter.id.toString()) {
             this.setState({
                 currentTry: this.state.currentTry + 1,
                 score: this.state.score + 1,
