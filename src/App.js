@@ -18,18 +18,17 @@ class App extends React.Component {
         <header className="App__header">
           <h1 className="font--big">KNOW YOUR RICK AND MORTY</h1>
           <nav>
-            {/* <Link to="/">Home</Link> */}
-            <span><Link to="/deadoralive">Dead or alive </Link></span>
-            <span><Link to="/whoiswho"> Who is who</Link></span>
+            <span><Link to="/rickandmorty/deadoralive">Dead or alive </Link></span>
+            <span><Link to="/rickandmorty/whoiswho"> Who is who</Link></span>
           </nav>
         </header>
 
         <div className="container__games">
         <Switch>
-          <Route path="/deadoralive">
+          <Route path="/rickandmorty/deadoralive">
             <DeadOrAlive />
           </Route>
-          <Route path="/whoiswho">
+          <Route path="/rickandmorty/whoiswho">
             <WhoIsWho />
           </Route>
           <Route path="/">
