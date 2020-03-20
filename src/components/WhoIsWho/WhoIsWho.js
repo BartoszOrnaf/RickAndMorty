@@ -1,8 +1,8 @@
 import React from 'react';
 import './whoIsWho.scss';
-import Board from './Board';
-import Card from './Card';
-
+import DisplayGame from './DisplayGame'
+import DisplayScore from './DisplayScore'
+import DisplayFinalScore from './DisplayFinalScore'
 class WhoIsWho extends React.Component {
 
     constructor(props) {
@@ -11,9 +11,14 @@ class WhoIsWho extends React.Component {
             randomIds: [],
             charactersArr: [],
             searchedCharacter: {},
-            currentTry: 1
+            currentTry: 1,
+            score: 0,
+            scoreMessage: '',
+            scoreDisplay: false,
+            scoreStyle: 'font--small--red'
         }
-        this.checkAnswer=this.checkAnswer.bind(this)
+        this.checkAnswer = this.checkAnswer.bind(this);
+        this.nextOne = this.nextOne.bind(this);
     }
 
     componentDidMount() {
@@ -25,14 +30,17 @@ class WhoIsWho extends React.Component {
         })
     }
 
-    // componentDidUpdate() {
-    //     console.log(this.state)
-    // }
-
     getCharacterCount(callback) {
-        this.setState({
-            characterCount: 400
-        }, callback)
+        fetch(
+            `https://rickandmortyapi.com/api/character`
+        )
+            .then(res => res.json())
+            .then(res => {
+                this.setState({
+                    characterCount: res.info.count
+                }, callback)
+            })
+            .catch(error => console.error('error:', error))
     }
 
     getRandomIds(callback) {
@@ -49,10 +57,9 @@ class WhoIsWho extends React.Component {
         }, callback)
     }
 
-    getSearchedCharacter(){
+    getSearchedCharacter(callback) {
         let randomIndex = Math.floor(Math.random() * 7)
         let searchedId = this.state.randomIds[randomIndex]
- 
 
         fetch(
             `https://rickandmortyapi.com/api/character/${searchedId}`,
@@ -61,13 +68,13 @@ class WhoIsWho extends React.Component {
             .then(res => res.json())
             .then(res => {
                 this.setState({
-                    searchedCharacter: res
-                })
-
+                    searchedCharacter: res,
+                    searchedCharacterImg: res.image
+                }, callback)
             })
             .catch(error => console.error('error:', error))
     }
-    
+
     addCharacter() {
         this.state.randomIds.forEach(element => {
             fetch(
@@ -83,68 +90,99 @@ class WhoIsWho extends React.Component {
                             characterName: res.name
                         }]
                     })
-
                 })
                 .catch(error => console.error('error:', error))
         });
     }
 
-    checkAnswer(answer){
-        console.log("searchedCharacterId")
-        console.log(this.state.searchedCharacter.id)
-        console.log(answer)
-        
-        if(answer==this.state.searchedCharacter.id){
-            
-            console.log("You are right!")
-        }else{
-            console.log("You are wrong!")
+    checkAnswer(answer) {
 
+        if (answer == this.state.searchedCharacter.id) {
+            this.setState({
+                currentTry: this.state.currentTry + 1,
+                score: this.state.score + 1,
+                scoreMessage: `You guessed it! This is ${this.state.searchedCharacter.name}:`,
+                scoreStyle: 'font--small--green'
+            }, () => { setTimeout(() => this.toggleScoreDisplay(), 300) })
+        } else {
+            this.setState({
+                currentTry: this.state.currentTry + 1,
+                scoreMessage: `Ups! You got it wrong! This is ${this.state.searchedCharacter.name}:`,
+                scoreStyle: 'font--small--red'
+            }, () => { setTimeout(() => this.toggleScoreDisplay(), 300) })
         }
+    }
+
+    nextOne() {
+        this.setState({
+            charactersArr: [],
+        }, () => {
+            this.getRandomIds(() => {
+                this.getSearchedCharacter(
+                    () => { this.toggleScoreDisplay() }
+                );
+                this.addCharacter();
+            })
+        })
+    }
+
+    toggleScoreDisplay() {
+        this.setState({
+            scoreDisplay: !this.state.scoreDisplay
+        })
     }
 
 
     render() {
-        return (
-            <div>
-                <h1 className="font--small">{this.state.currentTry} of 10</h1>
-                <div className="character-grid">
-                    {
-                        this.state.charactersArr.map((character) =>
-                            <Board
-                                id={`board-${character.characterId}`}
-                                key={character.characterId}
-                                className="board">
-                                <Card
-                                    className="card"
-                                    draggable="true">
-                                    <img
-                                        id={`card-${character.characterId}`}
-                                        src={character.characterImg}
-                                        className="character__img--small"
-                                        alt="character"
-                                    />
-                                </Card>
-                            </Board>)
-                    }
-                    <Board
-                        id="board-compare"
-                        className="board__compare"
+        return (<div>
+            {
+                (this.state.scoreDisplay === false && this.state.currentTry < 11) ? (
+                    <DisplayGame
+                        currentTry={this.state.currentTry}
+                        charactersArr={this.state.charactersArr}
                         checkAnswer={this.checkAnswer}
-                        >
-                        <Card
-                            id="card-compare"
-                            draggable="false">
-                        </Card>
-                    </Board>
-                </div>
+                        searchedCharacterName={this.state.searchedCharacter.name}
+                    />
+                ) : false
+            }
 
-                <div className="font--small answer">
-                    <p>Drag {this.state.searchedCharacter.name} into the empty slot</p>
-                </div>
+            {
+                (this.state.scoreDisplay && this.state.currentTry < 11) ? (
+                    <DisplayScore
+                        scoreStyle={this.state.scoreStyle}
+                        scoreMessage={this.state.scoreMessage}
+                        searchedCharacterImg={this.state.searchedCharacter.image}
+                        score={this.state.score}
+                        nextOne={this.nextOne}
+                    />
+                ) : false
+            }
 
-            </div>
-        )
+            {
+                (this.state.currentTry === 11) ? (
+                    <DisplayFinalScore
+                        scoreStyle={this.state.scoreStyle}
+                        scoreMessage={this.state.scoreMessage}
+                        searchedCharacterImg={this.state.searchedCharacter.image}
+                        score={this.state.score}
+                        playAgain={() => {
+                            this.setState({
+                                currentTry: 1,
+                                scoreDisplay: false,
+                                score: 0
+                            },   this.setState({
+                                charactersArr: [],
+                            }, () => {
+                                this.getRandomIds(() => {
+                                    this.getSearchedCharacter();
+                                    this.addCharacter();
+                                })
+                            }))
+                        }}
+                    />
+                ) : false
+            }
+        </div>)
     }
 };
 
