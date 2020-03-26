@@ -1,12 +1,12 @@
 import React from 'react';
 import './deadOrAlive.scss';
 
-function DisplayGame(props) {
+function Game(props) {
 
     return (<div>
         <h1 className="font--small">{props.currentTry} of 10</h1>
-        <img src={props.characterImg} className="character__img" alt="character"/>
-        <h2 className="font--small">{props.characterName}</h2>
+        <img src={props.character.image} className="character__img" alt="character" />
+        <h2 className="font--small">{props.character.name}</h2>
         <h1 className="font--medium">
             <button className="button--medium"
                 onClick={() => {
@@ -23,4 +23,4 @@ function DisplayGame(props) {
 
 };
 
-export default DisplayGame;
+export default Game;

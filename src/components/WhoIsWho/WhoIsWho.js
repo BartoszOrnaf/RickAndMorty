@@ -1,8 +1,8 @@
 import React from 'react';
 import './whoIsWho.scss';
-import DisplayGame from './DisplayGame'
-import DisplayScore from './DisplayScore'
-import DisplayFinalScore from './DisplayFinalScore'
+import Game from './Game';
+import Score from './Score';
+import FinalScore from './FinalScore';
 class WhoIsWho extends React.Component {
 
     constructor(props) {
@@ -23,10 +23,11 @@ class WhoIsWho extends React.Component {
 
     componentDidMount() {
         this.getCharacterCount(() => {
-            this.getRandomIds(() => {
-                this.addCharacter();
-                this.getSearchedCharacter();
-            })
+            this.getRandomIds(8,() => {
+                this.getCharacters(() => {
+                    this.getSearchedCharacter();
+                });
+            });
         })
     }
 
@@ -38,61 +39,47 @@ class WhoIsWho extends React.Component {
             .then(res => {
                 this.setState({
                     characterCount: res.info.count
-                }, callback)
+                }, callback);
             })
-            .catch(error => console.error('error:', error))
+            .catch(error => console.error('error:', error));
     }
 
-    getRandomIds(callback) {
+    getRandomIds(a, callback) {
         const randomIds = [];
-        while (randomIds.length < 8) {
+        while (randomIds.length < a) {
             let currentId = Math.floor(Math.random() * (this.state.characterCount - 1)) + 1
             if (randomIds.indexOf(currentId) === -1) {
-                randomIds.push(currentId)
+                randomIds.push(currentId);
             }
         }
 
         this.setState({
             randomIds: randomIds
-        }, callback)
+        }, callback);
     }
 
     getSearchedCharacter(callback) {
-        let randomIndex = Math.floor(Math.random() * 7)
-        let searchedId = this.state.randomIds[randomIndex]
+        let randomIndex = Math.floor(Math.random() * 7);
 
+        this.setState({
+            searchedCharacter: this.state.charactersArr[randomIndex],
+            searchedCharacterImg: this.state.charactersArr[randomIndex].image
+        }, callback);
+
+    }
+
+    getCharacters(callback) {
         fetch(
-            `https://rickandmortyapi.com/api/character/${searchedId}`,
+            `https://rickandmortyapi.com/api/character/${this.state.randomIds}`,
             { method: 'GET' }
         )
             .then(res => res.json())
             .then(res => {
                 this.setState({
-                    searchedCharacter: res,
-                    searchedCharacterImg: res.image
-                }, callback)
+                    charactersArr: res
+                }, callback);
             })
-            .catch(error => console.error('error:', error))
-    }
-
-    addCharacter() {
-        this.state.randomIds.forEach(element => {
-            fetch(
-                `https://rickandmortyapi.com/api/character/${element}`,
-                { method: 'GET' }
-            )
-                .then(res => res.json())
-                .then(res => {
-                    this.setState({
-                        charactersArr: [...this.state.charactersArr, {
-                            characterId: res.id,
-                            characterImg: res.image,
-                            characterName: res.name
-                        }]
-                    })
-                })
-                .catch(error => console.error('error:', error))
-        });
+            .catch(error => console.error('error:', error));
     }
 
     checkAnswer(answer) {
@@ -117,11 +104,12 @@ class WhoIsWho extends React.Component {
         this.setState({
             charactersArr: [],
         }, () => {
-            this.getRandomIds(() => {
-                this.getSearchedCharacter(
-                    () => { this.toggleScoreDisplay() }
-                );
-                this.addCharacter();
+            this.getRandomIds(8,() => {
+                this.getCharacters(() => {
+                    this.getSearchedCharacter(
+                        () => { this.toggleScoreDisplay() }
+                    );
+                });
             })
         })
     }
@@ -132,12 +120,11 @@ class WhoIsWho extends React.Component {
         })
     }
 
-
     render() {
         return (<div>
             {
                 (this.state.scoreDisplay === false && this.state.currentTry < 11) ? (
-                    <DisplayGame
+                    <Game
                         currentTry={this.state.currentTry}
                         charactersArr={this.state.charactersArr}
                         checkAnswer={this.checkAnswer}
@@ -147,20 +134,20 @@ class WhoIsWho extends React.Component {
             }
 
             {
-                (this.state.scoreDisplay && this.state.currentTry < 11) ? (
-                    <DisplayScore
+                (this.state.scoreDisplay && this.state.currentTry < 11) && (
+                    <Score
                         scoreStyle={this.state.scoreStyle}
                         scoreMessage={this.state.scoreMessage}
                         searchedCharacterImg={this.state.searchedCharacter.image}
                         score={this.state.score}
                         nextOne={this.nextOne}
                     />
-                ) : false
+                )
             }
 
             {
-                (this.state.currentTry === 11) ? (
-                    <DisplayFinalScore
+                (this.state.currentTry === 11) && (
+                    <FinalScore
                         scoreStyle={this.state.scoreStyle}
                         scoreMessage={this.state.scoreMessage}
                         searchedCharacterImg={this.state.searchedCharacter.image}
@@ -170,17 +157,18 @@ class WhoIsWho extends React.Component {
                                 currentTry: 1,
                                 scoreDisplay: false,
                                 score: 0
-                            },   this.setState({
+                            }, this.setState({
                                 charactersArr: [],
                             }, () => {
-                                this.getRandomIds(() => {
-                                    this.getSearchedCharacter();
-                                    this.addCharacter();
+                                this.getRandomIds(8,() => {
+                                    this.getCharacters(() => {
+                                        this.getSearchedCharacter();
+                                    });
                                 })
                             }))
                         }}
                     />
-                ) : false
+                )
             }
         </div>)
     }

@@ -26,11 +26,15 @@ nav {
   width: 350px;
 }
 
-a {
+.navbar__link {
   @include font-main($font-small);
   text-decoration: none;
   &:hover {
     color: $main-green;
   }
 }
+.navbar__link--active{
+  @include font-main($font-small, $main-green);
+}
+
 
