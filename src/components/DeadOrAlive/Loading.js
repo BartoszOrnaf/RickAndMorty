@@ -1,5 +1,5 @@
 import React from 'react';
-import './deadOrAlive.scss';
+import "../../index.scss";
 import loading from './assets/loading.png';
 
 function Loading() {

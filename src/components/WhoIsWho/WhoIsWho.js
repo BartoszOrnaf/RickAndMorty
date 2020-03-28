@@ -1,8 +1,8 @@
 import React from 'react';
 import './whoIsWho.scss';
 import Game from './Game';
-import Score from './Score';
-import FinalScore from './FinalScore';
+import Score from '../Score/Score';
+import FinalScore from '../FinalScore/FinalScore';
 class WhoIsWho extends React.Component {
 
     constructor(props) {
@@ -23,7 +23,7 @@ class WhoIsWho extends React.Component {
 
     componentDidMount() {
         this.getCharacterCount(() => {
-            this.getRandomIds(8,() => {
+            this.getRandomIds(8, () => {
                 this.getCharacters(() => {
                     this.getSearchedCharacter();
                 });
@@ -104,7 +104,7 @@ class WhoIsWho extends React.Component {
         this.setState({
             charactersArr: [],
         }, () => {
-            this.getRandomIds(8,() => {
+            this.getRandomIds(8, () => {
                 this.getCharacters(() => {
                     this.getSearchedCharacter(
                         () => { this.toggleScoreDisplay() }
@@ -138,10 +138,11 @@ class WhoIsWho extends React.Component {
                     <Score
                         scoreStyle={this.state.scoreStyle}
                         scoreMessage={this.state.scoreMessage}
-                        searchedCharacterImg={this.state.searchedCharacter.image}
+                        characterImg={this.state.searchedCharacter.image}
                         score={this.state.score}
                         nextOne={this.nextOne}
                     />
+
                 )
             }
 
@@ -150,7 +151,7 @@ class WhoIsWho extends React.Component {
                     <FinalScore
                         scoreStyle={this.state.scoreStyle}
                         scoreMessage={this.state.scoreMessage}
-                        searchedCharacterImg={this.state.searchedCharacter.image}
+                        characterImg={this.state.searchedCharacter.image}
                         score={this.state.score}
                         playAgain={() => {
                             this.setState({
@@ -160,7 +161,7 @@ class WhoIsWho extends React.Component {
                             }, this.setState({
                                 charactersArr: [],
                             }, () => {
-                                this.getRandomIds(8,() => {
+                                this.getRandomIds(8, () => {
                                     this.getCharacters(() => {
                                         this.getSearchedCharacter();
                                     });

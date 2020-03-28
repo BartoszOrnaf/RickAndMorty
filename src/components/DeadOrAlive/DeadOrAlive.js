@@ -1,8 +1,8 @@
 import React from 'react';
-import './deadOrAlive.scss';
+import "../../index.scss";
 import Loading from './Loading'
-import Score from './Score';
-import FinalScore from './FinalScore';
+import Score from '../Score/Score';
+import FinalScore from '../FinalScore/FinalScore';
 import Game from './Game';
 class DeadOrAlive extends React.Component {
 
@@ -29,7 +29,7 @@ class DeadOrAlive extends React.Component {
         this.getCharacterCount(() => {
             this.getRandomIds(10, () => {
                 this.getCharacters(() => {
-                    this.setCharacter(()=>{
+                    this.setCharacter(() => {
                         this.toggleLoadingDisplay();
                     })
                 })
@@ -55,7 +55,7 @@ class DeadOrAlive extends React.Component {
     setCharacter(callback) {
         this.setState({
             character: this.state.charactersArr[this.state.currentTry - 1]
-        },callback)
+        }, callback)
     }
 
     getRandomIds(a, callback) {
@@ -123,10 +123,10 @@ class DeadOrAlive extends React.Component {
         this.setState({
             loading: true,
         }, () => {
-                this.setCharacter(()=>{
-                    this.toggleScoreDisplay();
-                    this.toggleLoadingDisplay();
-                });
+            this.setCharacter(() => {
+                this.toggleScoreDisplay();
+                this.toggleLoadingDisplay();
+            });
         })
     }
 
@@ -141,7 +141,6 @@ class DeadOrAlive extends React.Component {
             loading: !this.state.loading
         })
     }
-
 
     render() {
 
@@ -182,10 +181,10 @@ class DeadOrAlive extends React.Component {
                                     scoreDisplay: false,
                                     loading: true,
                                     score: 0
-                                }, ()=>{
+                                }, () => {
                                     this.getRandomIds(10, () => {
                                         this.getCharacters(() => {
-                                            this.setCharacter(()=>{
+                                            this.setCharacter(() => {
                                                 this.toggleLoadingDisplay()
                                             })
 
