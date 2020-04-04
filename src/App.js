@@ -4,10 +4,11 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  NavLink
+  Redirect
 } from "react-router-dom";
 import DeadOrAlive from './components/DeadOrAlive/DeadOrAlive';
 import WhoIsWho from './components/WhoIsWho/WhoIsWho';
+import Navigation from './components/Navigation/Navigation'
 
 class App extends React.Component {
 
@@ -17,34 +18,20 @@ class App extends React.Component {
 
         <header className="App__header">
           <h1 className="font--big">KNOW YOUR RICK AND MORTY</h1>
-          <nav>
-            <span>
-              <NavLink
-                to="/RickAndMorty/DeadOrAlive"
-                className="navbar__link"
-                activeClassName="navbar__link--active"
-              >Dead or alive </NavLink>
-            </span>
-            <span>
-              <NavLink
-                to="/RickAndMorty/WhoIsWho"
-                className="navbar__link"
-                activeClassName="navbar__link--active"
-              > Who is who</NavLink>
-            </span>
-          </nav>
+          <Navigation />
         </header>
 
         <div className="container__games">
           <Switch>
-            <Route path="/RickAndMorty/DeadOrAlive">
+            <Route path="/DeadOrAlive">
               <DeadOrAlive />
             </Route>
-            <Route path="/RickAndMorty/WhoIsWho">
+            <Route path="/WhoIsWho">
               <WhoIsWho />
             </Route>
-            <Route path="/">
-              <DeadOrAlive />
+            <Route path="/" render={()=>(
+              <Redirect to="/DeadOrAlive"/>
+            )}>
             </Route>
           </Switch>
         </div>
