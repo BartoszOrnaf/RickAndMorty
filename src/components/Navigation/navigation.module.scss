@@ -1,15 +1,14 @@
-@import "../../variables.scss";
-@import "../../index.scss";
-
+@import '../../variables.scss';
+@import '../../index.scss';
 
 .navbarLink {
-    @include font-main($font-small);
-    text-decoration: none;
-    &:hover {
-      color: $main-green;
-    }
+  @include font-main($font-small);
+  text-decoration: none;
+  &:hover {
+    color: $main-green;
   }
-  .navbarLinkActive{
-    @include font-main($font-small, $main-green);
-  }
-  
+}
+
+.navbarLinkActive {
+  @include font-main($font-small, $main-green);
+}

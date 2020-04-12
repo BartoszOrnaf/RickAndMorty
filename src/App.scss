@@ -12,7 +12,6 @@
   padding: 20px 0px 40px 0px;
 }
 
-
 body {
   box-sizing: border-box;
   margin: 0;
@@ -25,16 +24,5 @@ nav {
   justify-content: space-around;
   width: 350px;
 }
-
-// .navbar__link {
-//   @include font-main($font-small);
-//   text-decoration: none;
-//   &:hover {
-//     color: $main-green;
-//   }
-// }
-// .navbar__link--active{
-//   @include font-main($font-small, $main-green);
-// }
 
 
