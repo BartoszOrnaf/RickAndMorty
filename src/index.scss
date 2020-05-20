@@ -1,12 +1,13 @@
-@import "./variables.scss";
+@import './variables.scss';
 
 @mixin font-main($size, $color: $main-azure) {
   font-size: $size;
-  font-family: "Gloria Hallelujah";
+  font-family: 'Gloria Hallelujah';
   padding: 0px;
   margin: 0px;
   color: $color;
-  text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black, 0px 0px 15px $main-green;
+  text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black,
+    0px 0px 15px $main-green;
 }
 
 .font--big {
@@ -48,7 +49,7 @@
   width: 330px;
   height: 330px;
   margin: 10px;
-  background-image: url("./assets/loading.png");
+  background-image: url('./assets/loading.png');
   background-size: cover;
 }
 
@@ -62,8 +63,8 @@
 }
 
 .container__games {
+  margin-top: 50px;
   display: flex;
   justify-content: center;
+  text-align: center;
 }
-
-

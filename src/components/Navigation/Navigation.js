@@ -3,30 +3,42 @@ import '../../index.scss';
 import { NavLink } from 'react-router-dom';
 import styles from './navigation.module.scss';
 
-function Game() {
+function Navigation() {
   return (
     <nav>
-      <span>
+      <div className="titleContainer">
         <NavLink
-          to="/DeadOrAlive"
-          className={styles.navbarLink}
-          activeClassName={styles.navbarLinkActive}
+          to="/RickTalks"
+          className={styles.title}
+          activeClassName={styles.titleActive}
         >
-          Dead or alive{' '}
+          KNOW YOUR RICK AND MORTY
         </NavLink>
-      </span>
-      <span>
-        <NavLink
-          to="/WhoIsWho"
-          className={styles.navbarLink}
-          activeClassName={styles.navbarLinkActive}
-        >
-          {' '}
-          Who is who
-        </NavLink>
-      </span>
+      </div>
+      <div>
+        <span>
+          <NavLink
+            to="/DeadOrAlive"
+            className={styles.navbarLink}
+            activeClassName={styles.navbarLinkActive}
+          >
+            Dead or alive{' '}
+          </NavLink>
+        </span>
+
+        <span>
+          <NavLink
+            to="/WhoIsWho"
+            className={styles.navbarLink}
+            activeClassName={styles.navbarLinkActive}
+          >
+            {' '}
+            Who is who
+          </NavLink>
+        </span>
+      </div>
     </nav>
   );
 }
 
-export default Game;
+export default Navigation;

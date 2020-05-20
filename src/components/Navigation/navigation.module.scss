@@ -4,6 +4,7 @@
 .navbarLink {
   @include font-main($font-small);
   text-decoration: none;
+  margin: 0px 10px 0px 10px;
   &:hover {
     color: $main-green;
   }
@@ -11,4 +12,56 @@
 
 .navbarLinkActive {
   @include font-main($font-small, $main-green);
+  margin: 0px 10px 0px 10px;
+}
+
+.titleContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.title {
+  @include font-main($font-big);
+  outline: none;
+  &:hover {
+    @include font-main($font-big, $main-green);
+    cursor: pointer;
+  }
+}
+.title::after {
+  content: ' ';
+  background-image: url('./assets/rickSilent.png');
+  display: inline-block;
+  height: 60px;
+  width: 50px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  margin: 0px 0px 0px 20px;
+}
+.titleActive {
+  @include font-main($font-big, $main-green);
+  outline: none;
+}
+
+.titleActive::after {
+  content: ' ';
+  background-image: url('./assets/rickNodes.png');
+  display: inline-block;
+  height: 60px;
+  width: 50px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  margin: 0px 0px 0px 20px;
+}
+
+.title:hover::after {
+  content: ' ';
+  background-image: url('./assets/rickNodes.png');
+  display: inline-block;
+  height: 60px;
+  width: 50px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  margin: 0px 0px 0px 20px;
 }
