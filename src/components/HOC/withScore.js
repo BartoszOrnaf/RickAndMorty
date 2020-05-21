@@ -1,4 +1,5 @@
 import React from 'react';
+import appStore from '../../appStore/appStore';
 
 const withScore = (WrappedComponent) => {
   class WithScore extends React.Component {
@@ -26,10 +27,20 @@ const withScore = (WrappedComponent) => {
       });
     }
 
-    increment(stateValue) {
+    sendFinalScore() {
+      const { currentTry, score } = this.state;
+      if (currentTry === 11) {
+        appStore.dispatch({
+          type: 'ADD_SCORE',
+          payload: { newScore: score },
+        });
+      }
+    }
+
+    increment(stateValue, callback) {
       this.setState((prevState) => {
         return { [stateValue]: prevState[stateValue] + 1 };
-      });
+      }, callback);
     }
 
     incrementScore() {
@@ -37,7 +48,7 @@ const withScore = (WrappedComponent) => {
     }
 
     incrementCurrentTry() {
-      this.increment('currentTry');
+      this.increment('currentTry', this.sendFinalScore);
     }
 
     toggleScoreDisplay() {

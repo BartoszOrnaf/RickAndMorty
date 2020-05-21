@@ -47,7 +47,9 @@ class DeadOrAlive extends React.Component {
       toggleScoreDisplay,
     } = this.props;
     const { character } = this.state;
+
     incrementCurrentTry();
+
     if (answer === character.status && answer === 'Alive') {
       incrementScore();
       setScoreMessage(

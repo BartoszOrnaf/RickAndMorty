@@ -1,7 +1,10 @@
 import React from 'react';
 import './rickTalks.scss';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
-export default function RickTalks() {
+export function RickTalks(props) {
+  const { gamesPlayed, averageScore } = props;
   return (
     <div className="rickTalksContainer">
       <div className="rickTalks">
@@ -10,10 +13,29 @@ export default function RickTalks() {
 
       <div className="font--small--green alignStart">
         <p>You have </p>
-        <p>played 0 games</p>
+        <p>played {gamesPlayed} games</p>
         <p>Your average </p>
-        <p>score is 5/10</p>
+        <p>score is {averageScore}/10</p>
       </div>
     </div>
   );
 }
+
+const mapStateToProps = (state) => {
+  return {
+    averageScore: state.rickTalks.averageScore,
+    gamesPlayed: state.rickTalks.gamesPlayed,
+  };
+};
+const mapDispatchToProps = (dispatch) => {
+  return {
+    addScore: () => dispatch({ type: 'ADD_SCORE', payload: { newScore: 9 } }),
+  };
+};
+
+RickTalks.propTypes = {
+  gamesPlayed: PropTypes.number.isRequired,
+  averageScore: PropTypes.number.isRequired,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(RickTalks);
