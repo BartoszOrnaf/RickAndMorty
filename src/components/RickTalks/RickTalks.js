@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 
 export function RickTalks(props) {
   const { gamesPlayed, averageScore } = props;
+
   return (
     <div className="rickTalksContainer">
       <div className="rickTalks">
@@ -13,7 +14,10 @@ export function RickTalks(props) {
 
       <div className="font--small--green alignStart">
         <p>You have </p>
-        <p>played {gamesPlayed} games</p>
+        <p>
+          played {gamesPlayed}
+          {gamesPlayed > 1 || gamesPlayed === 0 ? ' games' : ' game'}
+        </p>
         <p>Your average </p>
         <p>score is {averageScore}/10</p>
       </div>
