@@ -1,24 +1,25 @@
 {
   "files": {
-    "main.css": "/RickAndMorty/static/css/main.53b345e4.chunk.css",
-    "main.js": "/RickAndMorty/static/js/main.b905cb42.chunk.js",
-    "main.js.map": "/RickAndMorty/static/js/main.b905cb42.chunk.js.map",
+    "main.css": "/RickAndMorty/static/css/main.f8f62c9d.chunk.css",
+    "main.js": "/RickAndMorty/static/js/main.512715a7.chunk.js",
+    "main.js.map": "/RickAndMorty/static/js/main.512715a7.chunk.js.map",
     "runtime-main.js": "/RickAndMorty/static/js/runtime-main.fb311bad.js",
     "runtime-main.js.map": "/RickAndMorty/static/js/runtime-main.fb311bad.js.map",
-    "static/js/2.d743ddd5.chunk.js": "/RickAndMorty/static/js/2.d743ddd5.chunk.js",
-    "static/js/2.d743ddd5.chunk.js.map": "/RickAndMorty/static/js/2.d743ddd5.chunk.js.map",
+    "static/js/2.69f5241f.chunk.js": "/RickAndMorty/static/js/2.69f5241f.chunk.js",
+    "static/js/2.69f5241f.chunk.js.map": "/RickAndMorty/static/js/2.69f5241f.chunk.js.map",
     "index.html": "/RickAndMorty/index.html",
-    "precache-manifest.d5c8a5f90a588dbc4813ebed5ac43838.js": "/RickAndMorty/precache-manifest.d5c8a5f90a588dbc4813ebed5ac43838.js",
+    "precache-manifest.a4fb4e332ac9baaa7614a093f3e0a0e5.js": "/RickAndMorty/precache-manifest.a4fb4e332ac9baaa7614a093f3e0a0e5.js",
     "service-worker.js": "/RickAndMorty/service-worker.js",
-    "static/css/main.53b345e4.chunk.css.map": "/RickAndMorty/static/css/main.53b345e4.chunk.css.map",
-    "static/js/2.d743ddd5.chunk.js.LICENSE.txt": "/RickAndMorty/static/js/2.d743ddd5.chunk.js.LICENSE.txt",
+    "static/css/main.f8f62c9d.chunk.css.map": "/RickAndMorty/static/css/main.f8f62c9d.chunk.css.map",
+    "static/js/2.69f5241f.chunk.js.LICENSE.txt": "/RickAndMorty/static/js/2.69f5241f.chunk.js.LICENSE.txt",
     "static/media/whoIsWho.scss": "/RickAndMorty/static/media/loadingSmall.081c19b2.png",
-    "static/media/loading.png": "/RickAndMorty/static/media/loading.fab02513.png"
+    "static/media/rickTalks.scss": "/RickAndMorty/static/media/rickWithBubble01.bd261ec4.png",
+    "static/media/navigation.module.scss": "/RickAndMorty/static/media/rickSilent.3f89fed7.png"
   },
   "entrypoints": [
     "static/js/runtime-main.fb311bad.js",
-    "static/js/2.d743ddd5.chunk.js",
-    "static/css/main.53b345e4.chunk.css",
-    "static/js/main.b905cb42.chunk.js"
+    "static/js/2.69f5241f.chunk.js",
+    "static/css/main.f8f62c9d.chunk.css",
+    "static/js/main.512715a7.chunk.js"
   ]
 }
