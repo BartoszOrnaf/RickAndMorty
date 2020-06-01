@@ -1,4 +1,5 @@
 import React from 'react';
+import { compose } from 'redux';
 import './whoIsWho.scss';
 import PropTypes from 'prop-types';
 import Game from './Game';
@@ -177,4 +178,4 @@ WhoIsWho.propTypes = {
   scoreStyle: PropTypes.string.isRequired,
 };
 
-export default withApi(withScore(WhoIsWho), 8);
+export default compose(withScore, withApi)(WhoIsWho, 8);

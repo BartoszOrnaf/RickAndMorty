@@ -1,12 +1,13 @@
 import React from 'react';
 import '../../index.scss';
 import PropTypes from 'prop-types';
+import { compose } from 'redux';
 import Loading from './Loading';
 import Score from '../Score/Score';
 import Game from './Game';
 import withApi from '../HOC/withApi';
 import withScore from '../HOC/withScore';
-// refactor do zrobienia: import { compose } from 'redux'
+
 class DeadOrAlive extends React.Component {
   constructor(props) {
     super(props);
@@ -187,4 +188,4 @@ DeadOrAlive.propTypes = {
   ).isRequired,
 };
 
-export default withApi(withScore(DeadOrAlive), 10);
+export default compose(withScore, withApi)(DeadOrAlive, 10);
